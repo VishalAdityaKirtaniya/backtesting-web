@@ -173,7 +173,7 @@ export default function ExecuteStrategies() {
                 onClick={() => setExpandedStrategy(strategy)}
                 className='w-full h-[15%] p-4 bg-gray-200 text-lg font-semibold text-gray-700 rounded-lg shadow-md hover:bg-gray-300 transition-all flex justify-between items-center'
               >
-                <span>{strategy["Strategy name"]}</span>
+                <span>{strategy["Strategy Name"]}</span>
                 <span className='text-sm text-gray-500'>
                   {strategy["Start Date"]} | Trade Size:{" "}
                   {strategy["Trade Size"]}

@@ -1,0 +1,26 @@
+# Node modules (ignore locally, but allow inside Docker)
+node_modules
+!node_modules/.bin
+
+# Build output (only ignore local builds, not inside Docker)
+.next/cache
+
+# Logs and cache
+.DS_Store
+*.log
+.cache
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Git and editor-related files
+.git
+.gitignore
+.vscode
+.idea
+
+# Docker files (to avoid unnecessary copies)
+Dockerfile
+docker-compose.yml
