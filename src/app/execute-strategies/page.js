@@ -4,6 +4,7 @@ import { useState } from "react";
 import CSVTable from "../components/show_csv";
 import Link from "next/link";
 import Loading from "../components/loading";
+import Popup from "../components/popup";
 
 export default function ExecuteStrategies() {
   const [expandedStrategy, setExpandedStrategy] = useState(false);
@@ -183,56 +184,10 @@ export default function ExecuteStrategies() {
 
             {/* Fullscreen Overlay for Expanded Strategy */}
             {expandedStrategy && (
-              <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center'>
-                <div className=' relative h-[85vh] w-[90vw] z-30 flex flex-col overflow-auto bg-gray-100 rounded-lg shadow-lg'>
-                  {/* Close Button */}
-                  <button
-                    onClick={() => setExpandedStrategy(false)}
-                    className='absolute top-4 right-4 text-xl font-bold bg-gray-200 px-4 py-2 rounded-lg shadow-md hover:bg-gray-300 transition-all z-50'
-                  >
-                    ✖
-                  </button>
-                  <div className='h-full w-full flex gap-2 p-6 overflow-hidden'>
-                    {/* Content Grid */}
-                    <div className='flex flex-col gap-2 justify-between h-full w-1/2'>
-                      {/* Graph */}
-                      <div className='h-[55%] w-full'>
-                        <h2 className='text-lg font-semibold text-gray-700'>
-                          Performance Graph:
-                        </h2>
-                        <img
-                          src={`data:image/png;base64,${expandedStrategy["Graph Img"]}`}
-                          alt='Backtesting Graph'
-                          className='h-full rounded-md shadow-md'
-                        />
-                      </div>
-
-                      {/* Trade Log */}
-                      <div className='flex flex-col w-full h-[40%]'>
-                        <h3 className='text-lg font-medium text-gray-700'>
-                          Trade Log:
-                        </h3>
-                        <CSVTable
-                          base64Data={expandedStrategy["Trade Log"]}
-                          filename={`${expandedStrategy["Strategy name"]}_trade_log.csv`}
-                        />
-                      </div>
-                    </div>
-                    <div className='flex flex-row w-1/2 h-full'>
-                      {/* Robustness Test */}
-                      <div className=' overflow-scroll'>
-                        <h3 className='text-lg font-medium text-gray-700'>
-                          Robustness Test:
-                        </h3>
-                        <CSVTable
-                          base64Data={expandedStrategy["Robustness Test"]}
-                          filename={`${expandedStrategy["Strategy name"]}_robustness_test.csv`}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Popup
+              expandedStrategy={expandedStrategy}
+              setExpandedStrategy={setExpandedStrategy}
+            />
             )}
           </div>
         )}
