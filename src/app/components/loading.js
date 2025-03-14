@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Loading = () => {
   return (
-    <div className='w-48 h-10 flex justify-evenly items-center'>
+    <div className='w-full h-full flex justify-center gap-3 items-center'>
       <Image
         className='animate-spin'
         src='/loading.svg'

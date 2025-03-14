@@ -10,6 +10,8 @@ const Popup = ({ expandedStrategy, setExpandedStrategy }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const flaskurl = process.env.NEXT_PUBLIC_FLASK_URL;
+
   useEffect(() => {
     // Fetch API only when expandedStrategy exists
     if (!expandedStrategy) return;
@@ -19,12 +21,15 @@ const Popup = ({ expandedStrategy, setExpandedStrategy }) => {
       setError("");
 
       try {
-        const response = await fetch("http://127.0.0.1:8080/trade_logs", {
+        const response = await fetch(`${flaskurl}/trade_logs`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ strategy_name: expandedStrategy["Strategy Name"] }),
+          body: JSON.stringify({
+            strategy_name: expandedStrategy["Strategy Name"],
+            stock_symbol: expandedStrategy["Stock Symbol"],
+          }),
         });
 
         if (!response.ok) {
@@ -37,8 +42,6 @@ const Popup = ({ expandedStrategy, setExpandedStrategy }) => {
           robustness: data.robustness,
           trade_logs: data.trade_logs,
         });
-        console.log(strategyData.graph)
-        console.log(strategyData.trade_logs)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -86,9 +89,7 @@ const Popup = ({ expandedStrategy, setExpandedStrategy }) => {
                 <h3 className="text-lg font-medium text-gray-700">
                   Trade Log:
                 </h3>
-                <CSVTable
-                  jsonData={strategyData.trade_logs}
-                />
+                <CSVTable jsonData={strategyData.trade_logs} />
               </div>
             </div>
 
@@ -98,9 +99,7 @@ const Popup = ({ expandedStrategy, setExpandedStrategy }) => {
                 <h3 className="text-lg font-medium text-gray-700">
                   Robustness Test:
                 </h3>
-                <CSVTable
-                  jsonData={strategyData.robustness}
-                />
+                <CSVTable jsonData={strategyData.robustness} />
               </div>
             </div>
           </div>
